@@ -25,22 +25,22 @@
             return $this->id;
         }
 
-        function getRestaurants()
-        {
-            $restaurants = array();
-            $returned_restaurants = $GLOBALS['DB']->query("SELECT * FROM restaurants WHERE cuisine_id = {$this->getId()};");
-            foreach($returned_restaurants as $restaurant){
-                $name = $restaurant['name'];
-                $location = $restaurant['location'];
-                $description = $restaurant['description'];
-                $price = $restaurant['price'];
-                $cuisine_id = $restaurant['cuisine_id'];
-                $id = $restaurant['id'];
-                $new_restaurant = new Restaurant($name, $location, $description, $price, $cuisine_id, $id);
-                array_push($restaurants, $new_restaurant);
-            }
-            return $restaurants;
-        }
+        // function getRestaurants()
+        // {
+        //     $restaurants = array();
+        //     $returned_restaurants = $GLOBALS['DB']->query("SELECT * FROM restaurants WHERE cuisine_id = {$this->getId()};");
+        //     foreach($returned_restaurants as $restaurant){
+        //         $name = $restaurant['name'];
+        //         $location = $restaurant['location'];
+        //         $description = $restaurant['description'];
+        //         $price = $restaurant['price'];
+        //         $cuisine_id = $restaurant['cuisine_id'];
+        //         $id = $restaurant['id'];
+        //         $new_restaurant = new Restaurant($name, $location, $description, $price, $cuisine_id, $id);
+        //         array_push($restaurants, $new_restaurant);
+        //     }
+        //     return $restaurants;
+        // }
 
         function save()
         {
@@ -62,7 +62,7 @@
                 $type = $cuisine['type'];
                 $id = $cuisine['id'];
                 $new_cuisine = new Cuisine($type, $id);
-                array_push($cuisines, $cuisine);
+                array_push($cuisines, $new_cuisine);
             }
             return $cuisines;
         }
@@ -72,13 +72,13 @@
             $GLOBALS['DB']->exec("DELETE FROM cuisines;");
         }
 
-        static function find($search_id)
+        static function find($search_type)
         {
             $found_cuisine = NULL;
             $cuisines = Cuisine::getAll();
-            foreach($cuisines as $cuisine){
-                $cuisine_id = $cuisine->getId();
-                if($cuisine_id == $search_id){
+            foreach($cuisines as $cuisine) {
+                $cuisine_type = $cuisine->getType();
+                if($cuisine_type == $search_type){
                     $found_cuisine = $cuisine;
                 }
             }
