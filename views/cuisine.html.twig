@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>Zelp</title>
+    </head>
+    <body>
+        <h1>Zelp</h1>
+        {% if restaurants is not empty %}
+            <h2>Here are the restaurants for {{ cuisine }}:</h2>
+            <ul>
+            {% for restaurant in restaurants %}
+                {% if restaurant.getCuisineId = cuisine.getId %}
+                    <li><a href="/restaurants/{{ restaurant.getId }}">{{ restaurant.getName }}</a></li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        {% else %}
+            <h2>There are no restaurants for {{ cuisine }}</h2>
+        {% endif %}
+
+        <form action="/restaurants" method="post">
+            <input id="cuisine_id" type="hidden" name="cuisine_id" value="{{ cuisine.getId }}">
+            <label for="name">Restaurant Name:</label>
+            <input type="text" name="name" id="name">
+            <label for="location">Location:</label>
+            <input type="text" name="location" id="location">
+            <label for="description">Description:</label>
+            <input type="text" name="description" id="description">
+            <label for="price">Price (in dollar signs i.e. $$$, $)</label>
+            <input type="text" name="price" id="price">
+
+            <button type="submit">Add restaurant:</button>
+        </form>
+
+        <form action="/">
+               <button type="submit" class="btn btn-success">Home</button>
+        </form>
+    </body>
+</html>

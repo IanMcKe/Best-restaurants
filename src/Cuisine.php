@@ -72,13 +72,13 @@
             $GLOBALS['DB']->exec("DELETE FROM cuisines;");
         }
 
-        static function find($search_type)
+        static function find($search_id)
         {
             $found_cuisine = NULL;
             $cuisines = Cuisine::getAll();
             foreach($cuisines as $cuisine) {
-                $cuisine_type = $cuisine->getType();
-                if($cuisine_type == $search_type){
+                $cuisine_id = $cuisine->getId();
+                if($cuisine_id == $search_id){
                     $found_cuisine = $cuisine;
                 }
             }
