@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <title>Zelp</title>
+    </head>
+    <body>
+        <h1>Zelp</h1>
+        <h2>Find Restaurants to Eat</h2>
+        {% if cuisines is not empty %}
+            <p>Here are The Cuisines to Choose From:</p>
+            <ul>
+                {% for cuisine in cuisines %}
+                    <li><a href="/cuisines/{{ cuisine.getId }}">{{ cuisine.getType }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>There are no Cuisines Here Yet </p>
+        {% endif %}
+
+        <form action="/cuisines" method="post">
+            <label for="type">Cuisine Type:</label>
+            <input type="text" name="type" id="type">
+            <button type="submit">Add Cuisine</button>
+        </form>
+
+    </body>
+</html>
