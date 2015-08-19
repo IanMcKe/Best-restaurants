@@ -16,8 +16,9 @@
     {
         protected function tearDown()
         {
-            //Restaurant::deleteAll();
+            Restaurant::deleteAll();
             Cuisine::deleteAll();
+            Review::deleteAll();
         }
 
         function test_getType()

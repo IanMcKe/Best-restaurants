@@ -104,9 +104,9 @@
                 $description = $restaurant['description'];
                 $price = $restaurant['price'];
                 $cuisine_id = $restaurant['cuisine_id'];
-                $id = $restaurant['$id'];
+                $id = $restaurant['id'];
                 $new_restaurant = new Restaurant($name, $location, $description, $price, $cuisine_id, $id);
-                array_push($restaurants, $new_restaurants);
+                array_push($restaurants, $new_restaurant);
             }
             return $restaurants;
         }
