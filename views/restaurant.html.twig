@@ -1,44 +1,55 @@
 <html>
 	<head>
 		<title>Zelp</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 	</head>
 	<body>
-		<h1>Zelp</h1>
-		<h2>{{ restaurant.getName }}</h2>
-		<ul>
-			<li>{{ restaurant.getLocation }}</li>
-			<li>{{ restaurant.getDescription }}</li>
-			<li>Price: {{ restaurant.getPrice }}</li>
-		</ul>
-		{% if reviews is not empty %}
-			{% for review in reviews %}
-				{% if restaurant.getId == review.getRestaurantId %}
-					<p>By: {{ review.getUser }}</p>
-					<p>{{ review.getStars }}</p>
-					<p>{{ review.getHeadline }}</p>
-					<p>{{ review.getBody }}</p>
-				{% endif %}
-			{% endfor %}
-		{% else %}
-			<h3>There Are no Reviews Yet</h3>
-		{% endif %}
-		
-		<form action="/reviews" method="post">
-            <input id="restaurant_id" type="hidden" name="restaurant_id" value="{{ restaurant.getId }}">
-            <label for="user">User:</label>
-            <input type="text" name="user" id="user">
-            <label for="stars">Stars:</label>
-            <input type="number" name="stars" id="stars">
-            <label for="headline">Headline:</label>
-            <input type="text" name="headline" id="headline">
-            <label for="body">Body:</label>
-            <input type="text" name="body" id="body">
-
-            <button type="submit">Add restaurant:</button>
-        </form>
-
-        <form action="/">
-               <button type="submit" class="btn btn-success">Home</button>
-        </form>
+		<div class="container">
+			<h1>Zelp</h1>
+			<h2>{{ restaurant.getName }}</h2>
+			<ul>
+				<li>{{ restaurant.getLocation }}</li>
+				<li>{{ restaurant.getDescription }}</li>
+				<li>Price: {{ restaurant.getPrice }}</li>
+			</ul>
+			{% if reviews is not empty %}
+				{% for review in reviews %}
+					{% if restaurant.getId == review.getRestaurantId %}
+						<p>By: {{ review.getUser }}</p>
+						<p>{{ review.getStars }}</p>
+						<p>{{ review.getHeadline }}</p>
+						<p>{{ review.getBody }}</p>
+					{% endif %}
+				{% endfor %}
+			{% else %}
+				<h3>There Are no Reviews Yet</h3>
+			{% endif %}
+			<form action="/reviews" method="post">
+				<div class="form-group">
+					<h4>Add A New Review:</h4>
+					<input id="restaurant_id" type="hidden" name="restaurant_id" value="{{ restaurant.getId }}">
+					<label for="user">User:</label>
+					<input type="text" name="user" id="user"class="form-control">
+					<label for="stars">Stars:</label>
+					<input type="number" name="stars" id="stars" class="form-control">
+					<label for="headline">Headline:</label>
+					<input type="text" name="headline" id="headline" class="form-control">
+					<label for="body">Body:</label>
+					<input type="text" name="body" id="body"class="form-control">
+					<br>
+					<button type="submit" class="btn btn-default">Submit Review</button>
+				</div>
+			</form>
+			
+			
+			<form action="/restaurants/{{ restaurant.getId }}/edit">
+				<button type="submit" class="btn btn-default">Edit Restaurant <i class="fa fa-pencil-square-o"></i></button>
+			</form>
+	
+			<form action="/">
+				<button type="submit" class="btn btn-default">Home <i class="fa fa-building-o"></i></button>
+			</form>
+		</div>
 	</body>
 </html>

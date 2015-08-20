@@ -40,9 +40,8 @@
     });
     
     $app->patch("/cuisines/{id}", function($id) use ($app){
-            $new_type = $_POST['type'];
             $cuisine = Cuisine::find($id);
-            $cuisine->update($new_type);
+            $cuisine->update($_POST['type']);
             return $app['twig']->render('cuisine.html.twig', array('cuisine' => $cuisine, 'restaurants' => Restaurant::getAll())); 
     });
     
@@ -62,6 +61,24 @@
     $app->get("/restaurants/{id}", function($id) use ($app) {
             $restaurant = Restaurant::find($id);
             return $app['twig']->render('restaurant.html.twig', array('restaurant' => $restaurant, 'reviews' => Review::getAll()));
+    });
+    
+    $app->get("/restaurants/{id}/edit", function($id) use ($app){
+            $restaurant = Restaurant::find($id);
+            return $app['twig']->render('restaurant_edit.html.twig', array('restaurant' => $restaurant)); 
+    });
+    
+    $app->patch("/restaurants/{id}", function($id) use ($app){
+            $restaurant = Restaurant::find($id);
+            $restaurant->update($_POST['name'], $_POST['location'], $_POST['description'], $_POST['price'], $_POST['cuisine_id']);
+            return $app['twig']->render('restaurant.html.twig', array('restaurant' => $restaurant, 'reviews' => Review::getAll())); 
+    });
+    
+    $app->delete("/restaurants/{id}", function($id) use ($app){
+       $restaurant = Restaurant::find($id);
+       $cuisine = Cuisine::find($restaurant->getCuisineId());
+       $restaurant->delete();
+       return $app['twig']->render('cuisine.html.twig', array('cuisine' => $cuisine, 'restaurants' => Restaurant::getAll())); 
     });
     
     $app->post("/reviews", function() use ($app) {
