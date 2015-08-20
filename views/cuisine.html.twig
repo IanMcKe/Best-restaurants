@@ -5,16 +5,16 @@
     <body>
         <h1>Zelp</h1>
         {% if restaurants is not empty %}
-            <h2>Here are the restaurants for {{ cuisine }}:</h2>
+            <h2>Here are the restaurants for {{ cuisine.getType }}:</h2>
             <ul>
             {% for restaurant in restaurants %}
-                {% if restaurant.getCuisineId = cuisine.getId %}
+                {% if restaurant.getCuisineId == cuisine.getId %}
                     <li><a href="/restaurants/{{ restaurant.getId }}">{{ restaurant.getName }}</a></li>
                 {% endif %}
             {% endfor %}
             </ul>
         {% else %}
-            <h2>There are no restaurants for {{ cuisine }}</h2>
+            <h2>There are no restaurants for {{ cuisine.getType }} Cuisine</h2>
         {% endif %}
 
         <form action="/restaurants" method="post">

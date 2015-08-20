@@ -1,0 +1,44 @@
+<html>
+	<head>
+		<title>Zelp</title>
+	</head>
+	<body>
+		<h1>Zelp</h1>
+		<h2>{{ restaurant.getName }}</h2>
+		<ul>
+			<li>{{ restaurant.getLocation }}</li>
+			<li>{{ restaurant.getDescription }}</li>
+			<li>Price: {{ restaurant.getPrice }}</li>
+		</ul>
+		{% if reviews is not empty %}
+			{% for review in reviews %}
+				{% if restaurant.getId == review.getRestaurantId %}
+					<p>By: {{ review.getUser }}</p>
+					<p>{{ review.getStars }}</p>
+					<p>{{ review.getHeadline }}</p>
+					<p>{{ review.getBody }}</p>
+				{% endif %}
+			{% endfor %}
+		{% else %}
+			<h3>There Are no Reviews Yet</h3>
+		{% endif %}
+		
+		<form action="/reviews" method="post">
+            <input id="restaurant_id" type="hidden" name="restaurant_id" value="{{ restaurant.getId }}">
+            <label for="user">User:</label>
+            <input type="text" name="user" id="user">
+            <label for="stars">Stars:</label>
+            <input type="number" name="stars" id="stars">
+            <label for="headline">Headline:</label>
+            <input type="text" name="headline" id="headline">
+            <label for="body">Body:</label>
+            <input type="text" name="body" id="body">
+
+            <button type="submit">Add restaurant:</button>
+        </form>
+
+        <form action="/">
+               <button type="submit" class="btn btn-success">Home</button>
+        </form>
+	</body>
+</html>
