@@ -109,6 +109,11 @@
             }
             return $reviews;
         }
+        
+        function delete()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM reviews WHERE id = {$this->getId()};");
+        }
 
         static function deleteAll()
         {

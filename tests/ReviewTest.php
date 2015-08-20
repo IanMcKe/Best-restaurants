@@ -218,6 +218,44 @@
 
             $this->assertEquals("6969babygirl", $result);
         }
+        
+        function test_delete()
+        {
+              $name = "Asian";
+            $id = null;
+            $test_cuisine = new Cuisine($name, $id);
+            $test_cuisine->save();
+
+            $restaurant_name = "The Golden Duck";
+            $location = "898 SW 5th Ave, Portland, OR";
+            $description = "A Chill Asian experince";
+            $price = "$$";
+            $cuisine_id = $test_cuisine->getId();
+            $test_restaurant = new Restaurant($restaurant_name, $location, $description, $price, $cuisine_id);
+            $test_restaurant->save();
+
+            $user = "yoloswag1959";
+            $stars = 3;
+            $headline = "It is aight.";
+            $body = "Yeah, pretty aight bro";
+            $restaurant_id = $test_restaurant->getId();
+            $test_review = new Review($user, $stars, $headline, $body, $restaurant_id);
+            $test_review->save();
+
+            $user2 = "6969babygirl";
+            $stars2 = 3;
+            $headline2 = "XOXO";
+            $body2 = "I cant even";
+            $restaurant_id2 = $test_restaurant->getId();
+            $test_review2 = new Review($user2, $stars2, $headline2, $body2, $restaurant_id2);
+            $test_review2->save();
+            
+            $test_review->delete();
+            $result = Review::getAll();
+            //var_dump($result);
+            
+            $this->assertEquals($test_review2, $result[0]);
+        }
     }
 
 ?>

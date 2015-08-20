@@ -52,6 +52,17 @@
         {
             $GLOBALS['DB']->exec("UPDATE cuisines SET type = '{$new_type}' WHERE id = {$this->getId()};");
             $this->setType($new_type);
+        } 
+        
+        function delete()
+        {
+            $restaurants = Restaurant::getAll();
+            foreach ($restaurants as $restaurant){
+                if($restaurant->getCuisineId() == $this->getId()){
+                    $restaurant->delete();
+                }
+            }
+            $GLOBALS['DB']->exec("DELETE FROM cuisines WHERE id = {$this->getId()};");
         }
 
         static function getAll()

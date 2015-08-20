@@ -93,6 +93,17 @@
             $GLOBALS['DB']->exec("INSERT INTO restaurants (name, location, description, price, cuisine_id) VALUES ('{$this->getName()}', '{$this->getLocation()}', '{$this->getDescription()}', '{$this->getPrice()}', {$this->getCuisineId()});");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
+        
+        function delete()
+        {
+            $reviews = Review::getAll();
+            foreach ($reviews as $review){
+                if($review->getRestaurantId() == $this->getId()){
+                    $review->delete();
+                }
+            }
+            $GLOBALS['DB']->exec("DELETE FROM restaurants WHERE id = {$this->getId()};");
+        }
 
         static function getAll()
         {
