@@ -17,7 +17,19 @@
 				{% for review in reviews %}
 					{% if restaurant.getId == review.getRestaurantId %}
 						<p>By: {{ review.getUser }}</p>
-						<p>{{ review.getStars }}</p>
+						{% if review.getStars == 1 %}
+							<p><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></p>
+						{% elseif review.getStars == 2 %}
+							<p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></p>
+						{% elseif review.getStars == 3 %}
+							<p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></p>
+						{% elseif review.getStars == 4 %}
+							<p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></p>
+						{% elseif review.getStars == 5 %}
+							<p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></p>
+						{% elseif review.getStars == 0 %}
+							<p><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></p>
+						{% endif %}
 						<p>{{ review.getHeadline }}</p>
 						<p>{{ review.getBody }}</p>
 					{% endif %}
@@ -25,14 +37,15 @@
 			{% else %}
 				<h3>There Are no Reviews Yet</h3>
 			{% endif %}
-			<form action="/reviews" method="post">
+			<form action="/reviews" method="post" oninput="amount.value=stars.value">
 				<div class="form-group">
 					<h4>Add A New Review:</h4>
 					<input id="restaurant_id" type="hidden" name="restaurant_id" value="{{ restaurant.getId }}">
 					<label for="user">User:</label>
 					<input type="text" name="user" id="user"class="form-control">
 					<label for="stars">Stars:</label>
-					<input type="number" name="stars" id="stars" class="form-control">
+					<input type="range" name="stars" min="0" max="5" id="stars">
+					<output name="amount" for="stars">0</output>
 					<label for="headline">Headline:</label>
 					<input type="text" name="headline" id="headline" class="form-control">
 					<label for="body">Body:</label>
