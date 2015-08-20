@@ -1,42 +1,56 @@
 <html>
     <head>
         <title>Zelp</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/styles.css">
     </head>
     <body>
-        <h1>Zelp</h1>
-        {% if restaurants is not empty %}
-            <h2>Here are the restaurants for {{ cuisine.getType }}:</h2>
-            <ul>
-            {% for restaurant in restaurants %}
-                {% if restaurant.getCuisineId == cuisine.getId %}
-                    <li><a href="/restaurants/{{ restaurant.getId }}">{{ restaurant.getName }}</a></li>
-                {% endif %}
-            {% endfor %}
-            </ul>
-        {% else %}
-            <h2>There are no restaurants for {{ cuisine.getType }} Cuisine</h2>
-        {% endif %}
-
-        <form action="/restaurants" method="post">
-            <input id="cuisine_id" type="hidden" name="cuisine_id" value="{{ cuisine.getId }}">
-            <label for="name">Restaurant Name:</label>
-            <input type="text" name="name" id="name">
-            <label for="location">Location:</label>
-            <input type="text" name="location" id="location">
-            <label for="description">Description:</label>
-            <input type="text" name="description" id="description">
-            <label for="price">Price (in dollar signs i.e. $$$, $)</label>
-            <input type="text" name="price" id="price">
-
-            <button type="submit">Add restaurant:</button>
-        </form>
-        
-        <form action="/cuisines/{{ cuisine.getId }}/edit">
-               <button type="submit" class="btn btn-success">Edit Cuisine</button>
-        </form>
-
-        <form action="/">
-               <button type="submit" class="btn btn-success">Home</button>
-        </form>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/"><i class="fa fa-yelp"></i> Zelp</a>
+                </div>			
+            </div>
+	   </nav>
+       <div class="da-background">
+            <div class="jumbotron vertical-center">
+                <div class="container">
+                        {% if restaurants is not empty %}
+                            <h2>Here are the restaurants for {{ cuisine.getType }} Cuisine:</h2>
+                            <ul>
+                            {% for restaurant in restaurants %}
+                                {% if restaurant.getCuisineId == cuisine.getId %}
+                                    <form action="/restaurants/{{ restaurant.getId }}">
+                                        <button type="submit" class="btn btn-default"><i class="fa fa-cutlery"></i> {{ restaurant.getName }}</button>
+                                    </form>
+                                {% endif %}
+                            {% endfor %}
+                            </ul>
+                        {% else %}
+                            <h2>There are no restaurants for {{ cuisine.getType }} Cuisine</h2>
+                        {% endif %}
+                </div>
+            </div>
+            <div class="container-fluid">
+                <form action="/restaurants" method="post">
+                    <div class="form-group">
+                        <input id="cuisine_id" type="hidden" name="cuisine_id" value="{{ cuisine.getId }}">
+                        <label for="name">Restaurant Name:</label>
+                        <input type="text" name="name" id="name" class="form-control">
+                        <label for="location">Location:</label>
+                        <input type="text" name="location" id="location" class="form-control">
+                        <label for="description">Description:</label>
+                        <input type="text" name="description" id="description" class="form-control">
+                        <label for="price">Price (in dollar signs i.e. $$$, $)</label>
+                        <input type="text" name="price" id="price" class="form-control">
+                        <button type="submit" class="btn btn-default"><i class="fa fa-plus"></i> Add restaurant:</button>
+                    <div>
+                </form>         
+                <form action="/cuisines/{{ cuisine.getId }}/edit">
+                    <button type="submit" class="btn btn-default">Edit Cuisine <i class="fa fa-pencil-square-o"></i></button>
+                </form>
+            </div>
+        </div>
     </body>
 </html>

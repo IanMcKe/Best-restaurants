@@ -1,0 +1,29 @@
+.da-background {
+	
+}
+
+.navbar{
+	background-color: azure;
+}
+
+.container-fluid {
+	margin-left: 12%;
+	margin-right: 12%;
+}
+
+.jumbotron {
+	background-color: #DCF7F7;
+}
+
+.jumbotron.vertical-center {
+  display: flex;
+  align-items: center;
+}
+
+.jumbotron.vertical-center container{
+
+}
+
+.btn {
+	background-color: azure;
+}

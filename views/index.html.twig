@@ -1,26 +1,45 @@
 <html>
     <head>
         <title>Zelp</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/styles.css">
     </head>
     <body>
-        <h1>Zelp</h1>
-        <h2>Find Restaurants to Eat</h2>
-        {% if cuisines is not empty %}
-            <p>Here are The Cuisines to Choose From:</p>
-            <ul>
-                {% for cuisine in cuisines %}
-                    <li><a href="/cuisines/{{ cuisine.getId }}">{{ cuisine.getType }}</a></li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>There are no Cuisines Here Yet </p>
-        {% endif %}
-
-        <form action="/cuisines" method="post">
-            <label for="type">Cuisine Type:</label>
-            <input type="text" name="type" id="type">
-            <button type="submit">Add Cuisine</button>
-        </form>
-
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/"><i class="fa fa-yelp"></i> Zelp</a>
+                </div>			
+            </div>
+	    </nav>
+        <div class="da-background">
+            <div class="jumbotron vertical-center">
+                <div class="container">
+                    <h2>Find Restaurants to Eat</h2>
+                    {% if cuisines is not empty %}
+                        <p>Here are The Cuisines to Choose From:</p>
+                        <ul>
+                            {% for cuisine in cuisines %}
+                                <form action="/cuisines/{{ cuisine.getId }}">
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-wifi"></i> {{ cuisine.getType }}</button>
+                                </form>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>There are no Cuisines Here Yet </p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="container-fluid">
+                <form action="/cuisines" method="post">
+                    <div class="form-group">
+                        <label for="type">Cuisine Type:</label>
+                        <input type="text" name="type" id="type" class="form-control">
+                        <button type="submit" class="btn btn-default"><i class="fa fa-plus"></i> Add Cuisine</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </body>
 </html>
